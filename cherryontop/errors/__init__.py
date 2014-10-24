@@ -2,7 +2,6 @@ import cherrypy
 import ujson
 
 from cherryontop.errors.base import CherryOnTopError, HTTPError
-from cherryontop.errors.base import ProgrammingError
 from cherryontop.errors.req import InvalidParameter, MissingParameter
 from cherryontop.errors.req import PayloadError, RequestError
 from cherryontop.errors.req import UnexpectedParameter
@@ -35,5 +34,5 @@ def error_response_handler():
 __all__ = [
     'error_response_handler',
     'CherryOnTopError', 'HTTPError', 'InvalidParameter', 'MissingParameter',
-    'PayloadError', 'ProgrammingError', 'RequestError', 'UnexpectedParameter',
+    'PayloadError', 'RequestError', 'UnexpectedParameter',
 ]

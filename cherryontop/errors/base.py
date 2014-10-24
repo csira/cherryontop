@@ -5,7 +5,3 @@ class CherryOnTopError(Exception):
 
 class HTTPError(CherryOnTopError):
     pass
-
-
-class ProgrammingError(CherryOnTopError):
-    pass

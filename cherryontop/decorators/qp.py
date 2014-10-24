@@ -1,7 +1,6 @@
 import functools
 
-from cherryontop.errors import InvalidParameter, ProgrammingError
-from cherryontop.errors import UnexpectedParameter
+from cherryontop.errors import InvalidParameter, UnexpectedParameter
 
 
 def typecast_query_params(*a, **kw):
@@ -37,7 +36,7 @@ def _get_checks(*args, **kwargs):
     for caster in args:
         param_name, func = caster
         if not callable(func):
-            raise ProgrammingError('cannot parse cast func')
+            raise TypeError('cast func must be callable')
 
         allowed.add(param_name)
         to_cast.append(caster)

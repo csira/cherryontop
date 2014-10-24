@@ -4,8 +4,7 @@ import cherrypy
 import ujson
 
 from cherryontop.errors import HTTPError, InvalidParameter, MissingParameter
-from cherryontop.errors import PayloadError, ProgrammingError
-from cherryontop.errors import RequestError, UnexpectedParameter
+from cherryontop.errors import PayloadError, RequestError, UnexpectedParameter
 
 
 def validate_body(*a, **kw):
@@ -68,7 +67,7 @@ def _get_checks(*args, **kwargs):
 
 def _check_validator(test):
     if not (isinstance(test, type) or callable(test)):
-        raise ProgrammingError('cannot parse validator')
+        raise TypeError('validator must be callable')
 
 
 def _deserialize_request_body():
