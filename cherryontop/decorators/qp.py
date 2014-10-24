@@ -4,27 +4,8 @@ from cherryontop.errors import InvalidParameter, ProgrammingError
 from cherryontop.errors import UnexpectedParameter
 
 
-def _get_checks(*params_or_funcs):
-    allowed, to_cast = set(), []
-
-    for param_or_func in params_or_funcs:
-        if isinstance(param_or_func, str):
-            param_name = param_or_func
-        elif isinstance(param_or_func, tuple):
-            param_name, func = param_or_func
-            if not callable(func):
-                raise ProgrammingError('cannot parse cast function')
-            to_cast.append(param_or_func)
-        else:
-            raise ProgrammingError('cannot parse cast function')
-
-        allowed.add(param_name)
-
-    return allowed, to_cast
-
-
-def typecast_query_params(*params_or_funcs):
-    allowed, cast_funcs = _get_checks(*params_or_funcs)
+def typecast_query_params(*a, **kw):
+    allowed, cast_funcs = _get_checks(*a, **kw)
 
     def wrap(f):
         @functools.wraps(f)
@@ -45,3 +26,20 @@ def typecast_query_params(*params_or_funcs):
             return f(*args, **kwargs)
         return wrapped
     return wrap
+
+
+def _get_checks(*args, **kwargs):
+    allowed = kwargs.pop('allow', [])
+    allowed = set(allowed)
+
+    to_cast = []
+
+    for caster in args:
+        param_name, func = caster
+        if not callable(func):
+            raise ProgrammingError('cannot parse cast func')
+
+        allowed.add(param_name)
+        to_cast.append(caster)
+
+    return allowed, to_cast
