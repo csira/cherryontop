@@ -1,4 +1,4 @@
-from setuptools import setup
+from setuptools import find_packages, setup
 
 
 long_desc = '''\
@@ -9,18 +9,13 @@ for binding routes and handling JSON request/response payloads.
 
 if __name__ == '__main__':
     setup(
-        packages=[
-            'cherryontop',
-            'cherryontop/cache',
-            'cherryontop/decorators',
-            'cherryontop/errors',
-        ],
+        packages=find_packages(),
         name='CherryOnTop',
         version='0.0.2',
         author='Christopher Sira',
         author_email='cbsira@gmail.com',
         license='BSD',
-        url="https://github.com/csira/cherryontop",
+        url='https://github.com/csira/cherryontop',
         description=('Helper abstractions and utilities for building JSON '
                      'APIs with CherryPy.'),
         long_description=long_desc,
