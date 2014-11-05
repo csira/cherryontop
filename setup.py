@@ -9,9 +9,14 @@ for binding routes and handling JSON request/response payloads.
 
 if __name__ == '__main__':
     setup(
-        packages=['cherryontop'],
+        packages=[
+            'cherryontop',
+            'cherryontop/cache',
+            'cherryontop/decorators',
+            'cherryontop/errors',
+        ],
         name='CherryOnTop',
-        version='0.0.1',
+        version='0.0.2',
         author='Christopher Sira',
         author_email='cbsira@gmail.com',
         license='BSD',
