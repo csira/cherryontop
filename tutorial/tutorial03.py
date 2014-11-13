@@ -3,7 +3,7 @@
 
 CherryOnTop exception classes plug into the cherrypy engine to
 return JSON error descriptions to the client. That is, when a
-subclass of `CherryOnTop.CherryOnTopError` is raised e.g.
+subclass of `CherryOnTopError` is raised e.g.
 
     raise cherryontop.errors.HTTPError('something bad happened')
 
