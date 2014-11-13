@@ -2,18 +2,17 @@
 4 - Query parameters
 
 While standard cherrypy handling for query parameters is still
-intact, you may define a signature and cast them to appropriate
-types with the `typecast_query_params` decorator. It takes any
-number of (param, func) tuples, where `param` is the name of
-the query parameter and `func` is a callable that casts the
-given value to the desired type.
+intact, CherryOnTop's `typecast_query_params` decorator allows
+you to define a type signature to cast them on the way in. It
+takes any number of (param, func) tuples, where `param` is the
+name of the query parameter and `func` is a callable that
+casts the given value to the desired type.
 
-The `UnexpectedParameter` error is raised when any unspecified
-parameter is provided. To bypass this behavior for a paremeter
-that needs no typecasting, specify a list of allowed parameters
-with the `allow` keyword argument. When `UnexpectedParameter`
-is raised, the name of the offending parameter is returned in
-the response payload's 'message' key.
+`UnexpectedParameter` is raised when any undeclared parameter is
+encountered. Use the `allow` keyword argument to bypass this
+behavior for parameters that need no typecasting. When
+`UnexpectedParameter` is raised, the name of the offending
+parameter is returned in the response payload's `message` key.
 
 $ curl '0.0.0.0:8080'
 {"message":"Hello you!"}
