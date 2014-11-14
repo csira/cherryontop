@@ -1,38 +1,36 @@
 """
 5 - Request bodies
 
-While POST & PUT bodies are generally accessed via
-`cherrypy.request.body`, CherryOnTop provides the
-`validate_body` decorator to extract body parameters,
-validate them, and stuff them into the method as keyword
-arguments.
+For handlers expecting their payloads as JSON dictionaries,
+CherryOnTop provides the `validate_body` decorator to extract
+those parameters, validate them, and stuff them into the method
+as keyword arguments.
 
-`validate_body` takes any number of (param_name, validator)
-tuples, where `param` is the JSON key and `validator` may
-be a callable or a type. Callables must take the JSON value
-as an input and return a bool, where any False immediately
-triggers an `InvalidParameter` error. If a type is specified
-instead and the given value is not an instance of the
-declared type, `InvalidParameter` is thrown as well.
+It takes any number of (param_name, validator) tuples, where
+`param_name` is the key and `validator` may be a callable or
+type. Callables must take the parameter value as an input and
+return a bool (a False immediately triggers an `InvalidParameter`
+error), and types indicate we should test the given value is
+an instance of the specified type (`InvalidParameter` is thrown
+if not).
 
-Like `typecast_query_params`, all expected parameters must
-be declared, else `UnexpectedParameter` will be thrown. The
-`allow` keyword argument is still available to bypass this.
+Like `typecast_query_params` all expected parameters must be
+declared, else `UnexpectedParameter` is thrown. Use the `allow`
+keyword argument to bypass this.
 
-Any parameter listed in the `require` argument array will
-be subjected to one additional validation step: every
-request MUST specify this parameter, else `MissingParameter`
-is raised.
+The new keyword argument `require` is available here too. Any
+parameter listed in the array but not provided in the request
+body will trigger a `MissingParameter` error.
 
-NB: A side effect of injecting both body parameters and
-query parameters as keyword arguments is the possibility
-for same-named parameters to overwrite one another. For
-this reason, it is recommended you avoid such naming
-conflicts within a single handler.
+NB: Injecting both body parameters and query parameters as
+keyword arguments leads to the possibility for same-named
+parameters to overwrite one another. For this reason, it is
+recommended you avoid naming conflicts across body and query
+parameters within a single handler.
 
-Caveat: since CherryPy passes query parameters as keyword arguments
-by default, `typecast_query_params` must be listed above `validate_body`
-in cases where you must use them both. E.g.
+Caveat: since cherrypy passes query parameters as keyword
+arguments by default, `typecast_query_params` must be listed
+above `validate_body` any time you use them both.
 
 $ curl 0.0.0.0:8080 -H 'content-type:application/json' -d '{"name":"chris"}'
 {"message":"Hello chris!"}
