@@ -16,6 +16,6 @@ be useful while building JSON APIs. A few things to keep in mind:
 
   - Any config you would normally supply to cherrypy may and should still
     be specified here - socket, port, thread pool size, etc. Setting
-    config options on controllers with `_cp_config` still works, too, but
-    note that specifying the `request.error_response` key will override
-    CherryOnTop's error handling mechanism.
+    config options on controllers with `_cp_config` continues to work, as
+    well, but note that specifying the `request.error_response` key will
+    override CherryOnTop's error handling mechanism.
