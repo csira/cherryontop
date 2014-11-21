@@ -1,30 +1,48 @@
 """
-4 - Query parameters
+4 - Exceptions
 
-While standard cherrypy handling for query parameters is still
-intact, CherryOnTop's `typecast_query_params` decorator allows
-you to define a type signature to cast them on the way in. It
-takes any number of (param, func) tuples, where `param` is the
-name of the query parameter and `func` is a callable that
-casts the given value to the desired type.
+CherryOnTop exception classes plug into the cherrypy engine to
+return JSON error descriptions to the client. That is, when a
+subclass of `CherryOnTopError` is raised e.g.
 
-`UnexpectedParameter` is raised when any undeclared parameter is
-encountered. Use the `allow` keyword argument to bypass this
-behavior for parameters that need no typecasting. When
-`UnexpectedParameter` is raised, the name of the offending
-parameter is returned in the response payload's `message` key.
+    raise cherryontop.errors.HTTPError('something bad happened')
 
-$ curl '0.0.0.0:8080'
-{"message":"Hello you!"}
+and not explicitly caught, the following cascade kicks in:
 
-$ curl '0.0.0.0:8080?name=chris'
-{"message":"Hello chris!"}
+  - the HTTP response code is set to <exception>.http_response_code
+  - the HTTP response type is set to 'application/json'
+  - a JSON payload is rendered and returned, e.g.
 
-$ curl '0.0.0.0:8080?name=chris&a=1&b=2'
-{"a":1,"message":"Hello chris!","b":2.0}
+    {
+        'error': 'HTTPError',
+        'http_response_code': 500,
+        'message': 'something bad happened',
+    }
 
-$ curl '0.0.0.0:8080?name=chris&a=1&b=2&c=3'
-{"message":"c","http_response_code":400,"error":"UnexpectedParameter"}
+$ curl "0.0.0.0:8080/broken" -v
+
+* About to connect() to 0.0.0.0 port 8080 (#0)
+*   Trying 0.0.0.0...
+* Adding handle: conn: 0x7fc573804000
+* Adding handle: send: 0
+* Adding handle: recv: 0
+* Curl_addHandleToPipeline: length: 1
+* - Conn 0 (0x7fc573804000) send_pipe: 1, recv_pipe: 0
+* Connected to 0.0.0.0 (0.0.0.0) port 8080 (#0)
+> GET /broken HTTP/1.1
+> User-Agent: curl/7.30.0
+> Host: 0.0.0.0:8080
+> Accept: */*
+>
+< HTTP/1.1 500 Internal Server Error
+< Date: Sun, 09 Nov 2014 14:48:27 GMT
+< Content-Length: 81
+< Content-Type: application/json
+* Server CherryPy/3.6.0 is not blacklisted
+< Server: CherryPy/3.6.0
+<
+* Connection #0 to host 0.0.0.0 left intact
+{"message":"this handler is broken","http_response_code":500,"error":"HTTPError"}
 
 """
 
@@ -33,15 +51,11 @@ import os
 import cherryontop
 
 
-class HelloWorldController(cherryontop.Controller):
+class HelloWorld(cherryontop.Controller):
 
-    @cherryontop.get('/')
-    @cherryontop.typecast_query_params(('a', int,),
-                                       ('b', float,),
-                                       allow=['name'])
-    def hello_world(self, name=None, **kw):
-        kw['message'] = 'Hello %s!' % (name or 'you')
-        return kw
+    @cherryontop.get('/broken')
+    def im_broken(self):
+        raise cherryontop.errors.HTTPError('this handler is broken')
 
 
 if __name__ == '__main__':

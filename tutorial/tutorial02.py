@@ -28,7 +28,7 @@ import cherryontop
 import cherrypy
 
 
-class HelloWorldController(cherryontop.Controller):
+class HelloWorld(cherryontop.Controller):
 
     @staticmethod
     def _render(handler_name):

@@ -1,48 +1,30 @@
 """
-5 - Request bodies
+5 - Query parameters
 
-For handlers expecting their payloads as JSON dictionaries,
-CherryOnTop provides the `validate_body` decorator to extract
-those parameters, validate them, and stuff them into the method
-as keyword arguments.
+While standard cherrypy handling for query parameters is still
+intact, CherryOnTop's `typecast_query_params` decorator allows
+you to define a type signature to cast them on the way in. It
+takes any number of (param, func) tuples, where `param` is the
+name of the query parameter and `func` is a callable that
+casts the given value to the desired type.
 
-It takes any number of (param_name, validator) tuples, where
-`param_name` is the key and `validator` may be a callable or
-type. Callables must take the parameter value as an input and
-return a bool (a False immediately triggers an `InvalidParameter`
-error), and types indicate we should test the given value is
-an instance of the specified type (`InvalidParameter` is thrown
-if not).
+`UnexpectedParameter` is raised when any undeclared parameter is
+encountered. Use the `allow` keyword argument to bypass this
+behavior for parameters that need no typecasting. When
+`UnexpectedParameter` is raised, the name of the offending
+parameter is returned in the response payload's `message` key.
 
-Like `typecast_query_params` all expected parameters must be
-declared, else `UnexpectedParameter` is thrown. Use the `allow`
-keyword argument to bypass this.
+$ curl '0.0.0.0:8080'
+{"message":"Hello you!"}
 
-The new keyword argument `require` is available here too. Any
-parameter listed in the array but not provided in the request
-body will trigger a `MissingParameter` error.
-
-NB: Injecting both body parameters and query parameters as
-keyword arguments leads to the possibility for same-named
-parameters to overwrite one another. For this reason, it is
-recommended you avoid naming conflicts across body and query
-parameters within a single handler.
-
-Caveat: since cherrypy passes query parameters as keyword
-arguments by default, `typecast_query_params` must be listed
-above `validate_body` any time you use them both.
-
-$ curl 0.0.0.0:8080 -H 'content-type:application/json' -d '{"name":"chris"}'
+$ curl '0.0.0.0:8080?name=chris'
 {"message":"Hello chris!"}
 
-$ curl 0.0.0.0:8080 -H 'content-type:application/json' -H "content-length:0" -X POST
-{"message":"name","http_response_code":400,"error":"MissingParameter"}
+$ curl '0.0.0.0:8080?name=chris&a=1&b=2'
+{"a":1,"message":"Hello chris!","b":2.0}
 
-$ curl 0.0.0.0:8080 -H 'content-type:application/json' -d '{"name":"chris","underwear_size":"m","foo":"bar"}'
-{"message":"Hello chris!","foo":"bar","underwear_size":"m"}
-
-$ curl 0.0.0.0:8080 -H 'content-type:application/json' -d '{"name":"chris","underwear_size":"M"}'
-{"message":"underwear_size","http_response_code":400,"error":"InvalidParameter"}
+$ curl '0.0.0.0:8080?name=chris&a=1&b=2&c=3'
+{"message":"c","http_response_code":400,"error":"UnexpectedParameter"}
 
 """
 
@@ -51,16 +33,12 @@ import os
 import cherryontop
 
 
-UNDERWEAR_SIZES = ['s', 'm', 'l']
+class HelloWorld(cherryontop.Controller):
 
-
-class HelloWorldController(cherryontop.Controller):
-
-    @cherryontop.post('/')
-    @cherryontop.validate_body(('name', unicode,),
-                               ('underwear_size', lambda i: i in UNDERWEAR_SIZES,),
-                               allow=('foo',),
-                               require=('name',))
+    @cherryontop.get('/')
+    @cherryontop.typecast_query_params(('a', int,),
+                                       ('b', float,),
+                                       allow=['name'])
     def hello_world(self, name=None, **kw):
         kw['message'] = 'Hello %s!' % (name or 'you')
         return kw

@@ -38,7 +38,7 @@ import os
 import cherryontop
 
 
-class HelloWorldController(cherryontop.Controller):
+class HelloWorld(cherryontop.Controller):
 
     @cherryontop.get('/')
     def hello_world(self):
