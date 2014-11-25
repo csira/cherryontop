@@ -22,8 +22,8 @@ CherryOnTop
 CherryOnTop is a library for building JSON API's in Python_ with CherryPy_.
 
 * **Routing:** Built in support for binding static and dynamic URLs alongside the methods that implement their logic (a la Bottle / Flask).
-* **Utilities:** Native handling for query parameters, JSON request/response payloads, and error conditions.
-* **Server:** All the stability and power of the CherryPy engine.
+* **Server:** The power and stability of the CherryPy engine.
+* **Utilities:** Handling for query parameters and JSON request/response payloads, descriptive messages and clean propagation for error conditions.
 
 
 "Hello world"
