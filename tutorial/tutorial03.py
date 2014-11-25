@@ -1,14 +1,13 @@
 """
 3 - Dynamic routes
 
-CherryOnTop supports dynamic routes in a common fashion: dynamic
-URL components should be specified with a preceding colon, then
-passed into the method as positional or keyword arguments.
+Dynamic routes in CherryOnTop may be specified by placing a colon
+prior to each dynamic components, then passing those elements into
+the method as positional or keyword arguments.
 
-For consistency's sake, it is recommended only optional parameters
-be specified as keyword arguments. Required route parameters should
-appear positionally and in the same order they appear in the URL.
-(Suggestions only, neither strictly enforced.)
+For consistency, only optional parameters should be passed as
+keyword arguments. Required parameters should appear positionally
+and in the same order they appear in the URL.
 
 """
 

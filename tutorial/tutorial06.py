@@ -1,17 +1,16 @@
 """
 6 - Request bodies
 
-For handlers expecting their payloads as JSON dictionaries,
-CherryOnTop provides the `validate_body` decorator to extract
-those parameters, validate them, and stuff them into the method
-as keyword arguments.
+For handlers expecting JSON dictionary payloads, CherryOnTop
+provides the `validate_body` decorator to extract parameters,
+validate them, and stuff them into the method as keyword arguments.
 
 It takes any number of (param_name, validator) tuples, where
 `param_name` is the key and `validator` may be a callable or
 type. Callables must take the parameter value as an input and
 return a bool (a False immediately triggers an `InvalidParameter`
 error), and types indicate we should test the given value is
-an instance of the specified type (`InvalidParameter` is thrown
+an instance of the specified type (`InvalidParameter` also thrown
 if not).
 
 Like `typecast_query_params` all expected parameters must be
@@ -24,13 +23,13 @@ body will trigger a `MissingParameter` error.
 
 NB: Injecting both body parameters and query parameters as
 keyword arguments leads to the possibility for same-named
-parameters to overwrite one another. For this reason, it is
-recommended you avoid naming conflicts across body and query
-parameters within a single handler.
+parameters to overwrite one another. Hence, it is recommended
+you avoid naming conflicts across body and query parameters
+within a single handler.
 
 Caveat: since cherrypy passes query parameters as keyword
 arguments by default, `typecast_query_params` must be listed
-above `validate_body` any time you use them both.
+above `validate_body` any time they are used together.
 
 $ curl 0.0.0.0:8080 -H 'content-type:application/json' -d '{"name":"chris"}'
 {"message":"Hello chris!"}
