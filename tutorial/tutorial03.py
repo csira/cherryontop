@@ -2,7 +2,7 @@
 3 - Dynamic routes
 
 Dynamic routes in CherryOnTop may be specified by placing a colon
-prior to each dynamic components, then passing those elements into
+prior to each dynamic component, then passing those elements into
 the method as positional or keyword arguments.
 
 For consistency, only optional parameters should be passed as
