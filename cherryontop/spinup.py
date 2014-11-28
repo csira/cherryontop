@@ -56,14 +56,14 @@ def start_server(host='0.0.0.0',
     strict_start_server(config=conf, **kwargs)
 
 
-def strict_start_server(config=None, root='/', daemonize=False):
+def strict_start_server(config=None, daemonize=False):
     _setup_global_config(config)
 
     if daemonize:
         _daemonize()
 
     app_config = {
-        root: {'request.dispatch': _create_dispatcher()},
+        '/': {'request.dispatch': _create_dispatcher()},
     }
 
-    cherrypy.quickstart(None, root, config=app_config)
+    cherrypy.quickstart(None, '/', config=app_config)
