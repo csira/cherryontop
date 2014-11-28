@@ -33,8 +33,6 @@ $ curl 0.0.0.0:8080 -v
 
 """
 
-import os
-
 import cherryontop
 
 
@@ -46,7 +44,4 @@ class HelloWorld(cherryontop.Controller):
 
 
 if __name__ == '__main__':
-    file_dir = os.path.dirname(os.path.realpath(__file__))
-    conf = '%s/tutorial.conf' % file_dir
-
-    cherryontop.start_server(conf, log_to_screen=True)
+    cherryontop.start_server(log_to_screen=True)
