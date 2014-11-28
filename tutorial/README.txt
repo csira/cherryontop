@@ -14,8 +14,6 @@ be useful while building JSON APIs. A few things to keep in mind:
     requirement is slightly broader: all handlers must return data that
     can be serialized to JSON.
 
-  - Any config you would normally supply to cherrypy may and should still
-    be specified here - socket, port, thread pool size, etc. Setting
-    config options on controllers with `_cp_config` continues to work, as
-    well, but note that specifying the `request.error_response` key will
+  - Setting config options on controllers with `_cp_config` will continue
+    to work, but note that specifying `request.error_response` will
     override CherryOnTop's error handling mechanism.
