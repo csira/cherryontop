@@ -8,9 +8,9 @@ validate them, and stuff them into the method as keyword arguments.
 It takes any number of (param_name, validator) tuples, where
 `param_name` is the key and `validator` may be a callable or
 type. Callables must take the parameter value as an input and
-return a bool (a False immediately triggers an `InvalidParameter`
-error), and types indicate we should test the given value is
-an instance of the specified type (`InvalidParameter` also thrown
+return True/False (a False immediately triggers an `InvalidParameter`
+error), and types indicate we should test whether the given value
+is an instance of the specified type (`InvalidParameter` also thrown
 if not).
 
 Like `typecast_query_params` all expected parameters must be

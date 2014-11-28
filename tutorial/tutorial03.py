@@ -5,10 +5,6 @@ Dynamic routes in CherryOnTop may be specified by placing a colon
 prior to each dynamic component, then passing those elements into
 the method as positional or keyword arguments.
 
-For consistency, only optional parameters should be passed as
-keyword arguments. Required parameters should appear positionally
-and in the same order they appear in the URL.
-
 """
 
 import cherryontop

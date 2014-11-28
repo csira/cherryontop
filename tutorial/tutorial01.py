@@ -2,8 +2,7 @@
 1 - Hello World
 
 This first sample app defines a single handler, opens a GET route
-at '/', loads cherrypy config data from 'tutorial.conf', and starts
-up a server with screen logging enabled.
+at '/', and starts up a server with screen logging enabled.
 
 $ python tutorial01.py
 $ curl 0.0.0.0:8080 -v
