@@ -4,7 +4,7 @@
 As you've seen in the tutorials so far, it's trivial to spin
 up CherryOnTop apps by calling `start_server`. This tutorial
 illustrates additional options you may pass to `start_server`,
-as well as the preferred way to pass cherrypy-style config data.
+as well as the preferred way to pass cherrypy-style configs.
 
 """
 
@@ -25,6 +25,10 @@ if __name__ == '__main__':
     access_log = '%s/access.log' % file_dir
     error_log = '%s/error.log' % file_dir
 
+
+    # quick and easy - no config file but options for
+    # common parameters
+
     cherryontop.start_server(host='127.0.0.1',    # default: 0.0.0.0
                              port=8123,           # default: 8080
                              threads=10,          # default: 20
@@ -34,14 +38,14 @@ if __name__ == '__main__':
                              path_to_error_log=error_log)
 
 
-    # here's an equivalent example that shows how to drive a
-    # server using cherrypy config files
+    # an equivalent example - how to drive servers using
+    # cherrypy config files
 
     config_file = '%s/tutorial.conf' % file_dir
     cherryontop.strict_start_server(config_file)
 
 
-    # and, equivalently:
+    # equivalently, a cherrypy config dict
 
     config_data = {
         'engine.autoreload_on': True,
