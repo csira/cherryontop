@@ -40,7 +40,7 @@ CherryOnTop is a library for building JSON API's in Python_ with CherryPy_.
       def hello_world(self, name='world'):
           return {'message': 'Hello %s!' % name}
 
-  start_server(<path_to_cherrypy_config>)
+  start_server()
 
 Run this script then point your browser to http://localhost:8080/hello/there (or just http://localhost:8080/hello). That's all there is to it.
 
