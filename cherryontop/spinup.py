@@ -41,7 +41,7 @@ def start_server(host='0.0.0.0',
                  path_to_error_log=None,
                  **kwargs):
     conf = {
-        'engine.autoreload_on': autoreload,
+        'engine.autoreload.on': autoreload,
         'log.screen': log_to_screen,
         'server.socket_host': host,
         'server.socket_port': port,
