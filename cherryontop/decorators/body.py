@@ -66,7 +66,7 @@ def _get_checks(*args, **kwargs):
 
 
 def _check_validator(test):
-    if not (isinstance(test, type) or callable(test)):
+    if not isinstance(test, type) and not callable(test):
         raise TypeError('validator must be callable')
 
 
