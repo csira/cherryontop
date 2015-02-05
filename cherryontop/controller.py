@@ -22,7 +22,7 @@ def _setup_cp_config(cls):
         cls._cp_config = cp_config
 
 
-class Base(type):
+class _Base(type):
     def __new__(cls, name, bases, dct):
         bases_of_this_type = [b for b in bases if isinstance(b, cls)]
         is_proper_subclass = len(bases_of_this_type) > 0
@@ -40,7 +40,7 @@ class Base(type):
 
                     dct[key] = _to_json(val)
 
-        the_class = super(Base, cls).__new__(cls, name, bases, dct)
+        the_class = super(_Base, cls).__new__(cls, name, bases, dct)
 
         if is_proper_subclass:
             register_controller(cid, the_class)
@@ -51,4 +51,4 @@ class Base(type):
 
 class Controller(object):
 
-    __metaclass__ = Base
+    __metaclass__ = _Base
