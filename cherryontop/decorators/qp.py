@@ -1,9 +1,10 @@
 import functools
 import inspect
 
-from cherryontop.errors import InvalidParameter, UnexpectedParameter
 import cherrypy
 from cherrypy.lib.httputil import parse_query_string
+
+from cherryontop.errors import InvalidParameter, UnexpectedParameter
 
 
 def typecast_query_params(*a, **kw):
