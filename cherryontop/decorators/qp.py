@@ -1,5 +1,8 @@
 import functools
 
+import cherrypy
+from cherrypy.lib.httputil import parse_query_string
+
 from cherryontop.errors import InvalidParameter, UnexpectedParameter
 
 
@@ -9,18 +12,22 @@ def typecast_query_params(*a, **kw):
     def wrap(f):
         @functools.wraps(f)
         def wrapped(*args, **kwargs):
+            query_params = parse_query_string(cherrypy.request.query_string)
+
             # all supplied parameters allowed?
-            for param in kwargs:
+            for param in query_params:
                 if param not in allowed:
                     raise UnexpectedParameter(param)
 
             # typecast params
-            for param_name, cast in cast_funcs:
-                if param_name in kwargs:
+            for param, cast in cast_funcs:
+                if param in query_params:
                     try:
-                        kwargs[param_name] = cast(kwargs[param_name])
+                        query_params[param] = cast(query_params[param])
                     except ValueError:
-                        raise InvalidParameter(param_name)
+                        raise InvalidParameter(param)
+
+            kwargs.update(query_params)
 
             return f(*args, **kwargs)
         return wrapped
