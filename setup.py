@@ -2,8 +2,8 @@ from setuptools import find_packages, setup
 
 
 long_desc = '''\
-CherryOnTop is a thin layer atop CherryPy that provides convenience methods
-for binding routes and handling JSON request/response payloads.
+CherryOnTop sits atop CherryPy, it provides convenience methods for binding
+routes and handling JSON request/response payloads.
 '''
 
 
@@ -11,13 +11,12 @@ if __name__ == '__main__':
     setup(
         packages=find_packages(),
         name='CherryOnTop',
-        version='0.0.5',
+        version='0.0.6',
         author='Christopher Sira',
         author_email='cbsira@gmail.com',
         license='BSD',
         url='https://github.com/csira/cherryontop',
-        description=('Helper abstractions and utilities for building JSON '
-                     'APIs with CherryPy.'),
+        description='Helper utilities for building JSON APIs with CherryPy.',
         long_description=long_desc,
         install_requires=[
             'cherrypy',

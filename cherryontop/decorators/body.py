@@ -3,8 +3,8 @@ import functools
 import cherrypy
 import ujson
 
-from cherryontop.errors import HTTPError, InvalidParameter, MissingParameter
-from cherryontop.errors import PayloadError, RequestError, UnexpectedParameter
+from cherryontop.errors import InvalidParameter, MissingParameter
+from cherryontop.errors import PayloadError, UnexpectedParameter
 
 
 def validate_body(*a, **kw):
@@ -71,10 +71,6 @@ def _check_validator(test):
 
 
 def _deserialize_request_body():
-    mimetype = cherrypy.request.headers.get('content-type')
-    if mimetype != 'application/json':
-        raise RequestError('Not JSON')
-
     body = cherrypy.request.body.read()
     if not body:
         return {}

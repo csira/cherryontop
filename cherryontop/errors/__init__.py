@@ -17,7 +17,7 @@ def _body(error, http_response_code):
 
 def _extra_headers(status):
     if status == 401:
-        realm = 'Basic realm="auth required"'
+        realm = 'xBasic realm="auth required"'
         cherrypy.response.headers['www-authenticate'] = realm
 
 
