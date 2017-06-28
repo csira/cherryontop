@@ -2,41 +2,40 @@ from setuptools import find_packages, setup
 
 
 long_desc = '''\
-CherryOnTop sits atop CherryPy, it provides convenience methods for binding
-routes and handling JSON request/response payloads.
+CherryOnTop is a small set of utilities and boilerplate for building JSON
+API's with CherryPy, it contains convenience methods for route-binding and
+some tooling for graceful error propagation. Thanks for taking a look.
 '''
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     setup(
         packages=find_packages(),
-        name='CherryOnTop',
-        version='0.0.7',
-        author='Christopher Sira',
-        author_email='cbsira@gmail.com',
-        license='BSD',
-        url='https://github.com/csira/cherryontop',
-        description='Helper utilities for building JSON APIs with CherryPy.',
+        name="CherryOnTop",
+        version="0.4.0",
+        author="Christopher Sira",
+        author_email="cbsira@gmail.com",
+        license="BSD",
+        url="https://github.com/csira/cherryontop",
+        description="Helper utilities for building JSON APIs with CherryPy.",
         long_description=long_desc,
         install_requires=[
-            'cherrypy',
-            'routes',
-            'ujson',
+            "cherrypy",
+            "routes",
         ],
         classifiers=[
-            'Development Status :: 3 - Alpha',
-            'Environment :: Web Environment',
-            'Framework :: CherryPy',
-            'Intended Audience :: Developers',
-            'License :: Freely Distributable',
-            'License :: OSI Approved :: BSD License',
-            'Operating System :: OS Independent',
-            'Programming Language :: Python',
-            'Programming Language :: Python :: 2',
-            'Programming Language :: Python :: 2.7',
-            'Topic :: Internet :: WWW/HTTP',
-            'Topic :: Internet :: WWW/HTTP :: HTTP Servers',
-            'Topic :: Software Development :: Libraries :: Application Frameworks',
-            'Topic :: Software Development :: Libraries :: Python Modules',
+            "Development Status :: 3 - Alpha",
+            "Environment :: Web Environment",
+            "Framework :: CherryPy",
+            "Intended Audience :: Developers",
+            "License :: Freely Distributable",
+            "License :: OSI Approved :: BSD License",
+            "Operating System :: OS Independent",
+            "Programming Language :: Python",
+            "Programming Language :: Python :: 2",
+            "Programming Language :: Python :: 2.7",
+            "Topic :: Internet :: WWW/HTTP",
+            "Topic :: Internet :: WWW/HTTP :: HTTP Servers",
+            "Topic :: Software Development :: Libraries :: Python Modules",
         ],
     )
