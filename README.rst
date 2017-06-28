@@ -22,7 +22,7 @@ Hello world
 
   @get("/hello/:name")
   def hello_world(name):
-      return {"message": "Hello world!"}
+      return {"message": "Hello {}!".format(name)}
 
   start_server()
 
