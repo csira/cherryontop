@@ -9,8 +9,6 @@ def set_header(name, value):
     cherrypy.response.headers[name] = value
 
 
-
-
 def get_cookie(name):
     cookie = cherrypy.request.cookie.get(name)
     return cookie.value if cookie else None
