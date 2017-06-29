@@ -13,12 +13,18 @@ def register_route(method, pattern, f):
         "name": uuid.uuid4().hex}
 
     _test_for_duplicate_func_name(f)
+    _test_for_duplicate_pattern(pattern)
     _routes.append((f, route,))
 
 
 def _test_for_duplicate_func_name(func):
     if func.__name__ in [f.__name__ for f in handlers()]:
         raise CherryOnTopError("duplicate handler function name found: {}".format(func.__name__))
+
+
+def _test_for_duplicate_pattern(pattern):
+    if pattern in [args["route"] for args in routes()]:
+        raise CherryOnTopError("duplicate pattern: {}".format(pattern))
 
 
 def handlers():
