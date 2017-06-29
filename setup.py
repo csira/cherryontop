@@ -11,7 +11,7 @@ some tooling for graceful error propagation. Thanks for taking a look.
 if __name__ == "__main__":
     setup(
         packages=find_packages(),
-        name="CherryOnTop",
+        name="cherryontop",
         version="0.4.3",
         author="Christopher Sira",
         author_email="cbsira@gmail.com",
