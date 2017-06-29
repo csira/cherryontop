@@ -12,7 +12,6 @@ def dispatcher_factory():
     dispatcher = cherrypy.dispatch.RoutesDispatcher()
     for route in routes():
         dispatcher.connect(controller=controller, **route)
-
     return dispatcher
 
 
