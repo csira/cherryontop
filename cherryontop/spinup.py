@@ -14,6 +14,7 @@ def start_server(host="0.0.0.0", port=8080, threads=20, autoreload=False,
     config = {
         "engine.autoreload.on": autoreload,
         "log.screen": log_to_screen,
+        "requests.show_tracebacks": False,
         "server.socket_host": host,
         "server.socket_port": port,
         "server.thread_pool": threads,
