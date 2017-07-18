@@ -1,6 +1,11 @@
 from setuptools import find_packages, setup
 
 
+# pip install twine
+# python setup.py sdist
+# twine upload dist
+
+
 long_desc = '''\
 CherryOnTop is a small set of utilities and boilerplate for building JSON
 API's with CherryPy, it contains convenience methods for route-binding and
@@ -12,7 +17,7 @@ if __name__ == "__main__":
     setup(
         packages=find_packages(),
         name="cherryontop",
-        version="0.4.4",
+        version="0.4.5",
         author="Christopher Sira",
         author_email="cbsira@gmail.com",
         license="BSD",
