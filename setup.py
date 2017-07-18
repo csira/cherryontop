@@ -3,7 +3,7 @@ from setuptools import find_packages, setup
 
 # pip install twine
 # python setup.py sdist
-# twine upload dist
+# twine upload dist/*
 
 
 long_desc = '''\
