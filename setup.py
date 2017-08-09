@@ -17,7 +17,7 @@ if __name__ == "__main__":
     setup(
         packages=find_packages(),
         name="cherryontop",
-        version="0.4.5",
+        version="0.4.6",
         author="Christopher Sira",
         author_email="cbsira@gmail.com",
         license="BSD",
