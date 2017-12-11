@@ -4,7 +4,8 @@ from cherryontop.dispatcher import dispatcher_factory
 from cherryontop.discover import scan
 
 
-def start_server(host="0.0.0.0", port=8080, threads=20, autoreload=False,
+def start_server(
+        host="0.0.0.0", port=8080, threads=20, autoreload=False,
         log_to_screen=False, path_to_access_log=None, path_to_error_log=None,
         daemonize=False, autoscan=True, scan_root="."):
 
@@ -14,11 +15,10 @@ def start_server(host="0.0.0.0", port=8080, threads=20, autoreload=False,
     config = {
         "engine.autoreload.on": autoreload,
         "log.screen": log_to_screen,
-        "requests.show_tracebacks": False,
+        "request.show_tracebacks": False,
         "server.socket_host": host,
         "server.socket_port": port,
-        "server.thread_pool": threads,
-    }
+        "server.thread_pool": threads}
 
     if path_to_access_log:
         config["log.access_file"] = path_to_access_log
@@ -48,5 +48,4 @@ def _set_default_headers():
 
     cherrypy.config.update({
         "tools.response_headers.headers": headers,
-        "tools.response_headers.on": True,
-    })
+        "tools.response_headers.on": True})

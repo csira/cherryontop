@@ -1,10 +1,10 @@
 import functools
-import json
 
 import cherrypy
+import ujson
 
 from cherryontop.cache import handlers, routes
-from cherryontop.errors import error_response_handler
+from cherryontop.errors import unhandled_error_trap
 
 
 def dispatcher_factory():
@@ -25,7 +25,7 @@ def _controller_factory():
 
     class Controller(object):
         __metaclass__ = Base
-        _cp_config = {"request.error_response": error_response_handler}
+        _cp_config = {"request.error_response": unhandled_error_trap}
 
     return Controller
 
@@ -41,5 +41,5 @@ def _jsonify(f):
     @functools.wraps(f)
     def wrapper(*a, **kw):
         data = f(*a, **kw)
-        return json.dumps(data)
+        return ujson.dumps(data)
     return wrapper

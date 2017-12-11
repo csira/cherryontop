@@ -18,13 +18,13 @@ def register_route(method, pattern, f):
 
 
 def _test_for_duplicate_func_name(func):
-    if func.__name__ in [f.__name__ for f in handlers()]:
-        raise CherryOnTopError("duplicate handler function name found: {}".format(func.__name__))
+    if func.__name__ in (f.__name__ for f in handlers()):
+        raise ValueError("duplicate handler function name found: {}".format(func.__name__))
 
 
 def _test_for_duplicate_pattern(method, pattern):
     if any((method, pattern) == val for val in _pattern_iter()):
-        raise CherryOnTopError("duplicate pattern: {}".format(pattern))
+        raise ValueError("duplicate pattern: {}".format(pattern))
 
 
 def _pattern_iter():
@@ -33,8 +33,8 @@ def _pattern_iter():
 
 
 def handlers():
-    return [i[0] for i in _routes]
+    return (i[0] for i in _routes)
 
 
 def routes():
-    return [i[1] for i in _routes]
+    return (i[1] for i in _routes)

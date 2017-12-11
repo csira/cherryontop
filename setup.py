@@ -17,7 +17,7 @@ if __name__ == "__main__":
     setup(
         packages=find_packages(),
         name="cherryontop",
-        version="0.4.8",
+        version="0.4.9",
         author="Christopher Sira",
         author_email="cbsira@gmail.com",
         license="BSD",
@@ -25,9 +25,9 @@ if __name__ == "__main__":
         description="Helper utilities for building JSON APIs with CherryPy.",
         long_description=long_desc,
         install_requires=[
-            "cherrypy",
-            "routes",
-        ],
+            "cherrypy==13.0.0",
+            "routes==2.4.1",
+            "ujson==1.35"],
         classifiers=[
             "Development Status :: 3 - Alpha",
             "Environment :: Web Environment",
@@ -41,6 +41,4 @@ if __name__ == "__main__":
             "Programming Language :: Python :: 2.7",
             "Topic :: Internet :: WWW/HTTP",
             "Topic :: Internet :: WWW/HTTP :: HTTP Servers",
-            "Topic :: Software Development :: Libraries :: Python Modules",
-        ],
-    )
+            "Topic :: Software Development :: Libraries :: Python Modules"])

@@ -1,38 +1,47 @@
-import json
-
 import cherrypy
+import ujson
 
 
-class CherryOnTopError(Exception):
+class CherryOnTopError(cherrypy.HTTPError):
 
     status_code = 500
 
-    def __init__(self, *a, **kw):
-        Exception.__init__(self, *a)
-        self.meta = kw.pop("meta", None)
-        self.kwargs = kw
+    def __init__(self, message="", meta=None):
+        super(CherryOnTopError, self).__init__(self.status_code)
+        self.message = message
+        self.meta = meta
+
+    def set_response(self):
+        """Formats responses for handled exceptions. Tracebacks are suppressed from the error log."""
+        super(CherryOnTopError, self).set_response()
+        _throw(self)
 
 
-def error_response_handler():
+def unhandled_error_trap():
+    """Captures and formats responses for unhandled (i.e. non-HTTPError) exceptions.
+
+    Though trapped, tracebacks for these exceptions will be logged to the
+    error_file (if configured).
+
+    This is NOT reached when a cherrypy.HTTPError is raised.
+
+    """
     _, e, _ = cherrypy._cperror._exc_info()
+    _throw(e)
 
-    if isinstance(e, CherryOnTopError):
-        status = e.status_code
-        message = e.message
-        meta = e.meta
-    else:
-        status = 500
-        message = ""
-        meta = None
 
-    cherrypy.response.headers["content-type"] = "application/json"
-    cherrypy.response.status = status
-    cherrypy.response.body = json.dumps({
+def _throw(e):
+    status_code = getattr(e, "status_code", 500)
+    cherrypy.response.status = status_code
+
+    body = ujson.dumps({
         "error": e.__class__.__name__,
-        "status_code": status,
-        "message": message,
-        "meta": meta})
+        "status_code": status_code,
+        "message": getattr(e, "message", ""),
+        "meta": getattr(e, "meta", None)})
+    cherrypy.response.body = body
+    cherrypy.response.headers["content-length"] = len(body)
+    cherrypy.response.headers["content-type"] = "application/json"
 
-    if status == 401:
-        realm = 'xBasic realm="auth required"'
-        cherrypy.response.headers["www-authenticate"] = realm
+    if status_code == 401:
+        cherrypy.response.headers["www-authenticate"] = 'xBasic realm="auth required"'

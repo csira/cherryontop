@@ -1,6 +1,5 @@
-import json
-
 import cherrypy
+import ujson
 
 from cherryontop.errors import CherryOnTopError
 
@@ -17,7 +16,7 @@ def deserialize_request_body():
         return {}
 
     try:
-        body = json.loads(body)
+        body = ujson.loads(body)
     except ValueError:
         raise CherryOnTopError("Invalid JSON")
 
