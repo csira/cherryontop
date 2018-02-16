@@ -17,7 +17,7 @@ if __name__ == "__main__":
     setup(
         packages=find_packages(),
         name="cherryontop",
-        version="0.4.9",
+        version="1.0",
         author="Christopher Sira",
         author_email="cbsira@gmail.com",
         license="BSD",
@@ -29,7 +29,7 @@ if __name__ == "__main__":
             "routes==2.4.1",
             "ujson==1.35"],
         classifiers=[
-            "Development Status :: 3 - Alpha",
+            "Development Status :: 5 - Production/Stable",
             "Environment :: Web Environment",
             "Framework :: CherryPy",
             "Intended Audience :: Developers",
