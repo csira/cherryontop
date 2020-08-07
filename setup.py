@@ -25,7 +25,7 @@ if __name__ == "__main__":
         description="Helper utilities for building JSON APIs with CherryPy.",
         long_description=long_desc,
         install_requires=[
-            "cherrypy==13.0.0",
+            "cherrypy==18.0.0",
             "routes==2.4.1",
             "ujson==1.35"],
         classifiers=[
@@ -37,8 +37,9 @@ if __name__ == "__main__":
             "License :: OSI Approved :: BSD License",
             "Operating System :: OS Independent",
             "Programming Language :: Python",
-            "Programming Language :: Python :: 2",
-            "Programming Language :: Python :: 2.7",
+            "Programming Language :: Python :: 3",
+            "Programming Language :: Python :: 3.7",
+            "Programming Language :: Python :: 3.8",
             "Topic :: Internet :: WWW/HTTP",
             "Topic :: Internet :: WWW/HTTP :: HTTP Servers",
             "Topic :: Software Development :: Libraries :: Python Modules"])

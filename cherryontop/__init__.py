@@ -30,6 +30,7 @@ def start_server(
         "server.socket_host": host,
         "server.socket_port": port,
         "server.thread_pool": threads,
+        "tools.encode.text_only": False,
         "tools.response_headers.headers": headers,
         "tools.response_headers.on": True}
 
@@ -118,8 +119,7 @@ def _controller_factory():
                 dct[f.__name__] = staticmethod(_jsonify(f))
             return super(Base, cls).__new__(cls, name, bases, dct)
 
-    class Controller(object):
-        __metaclass__ = Base
+    class Controller(metaclass=Base):
         _cp_config = {"request.error_response": _unhandled_error_trap}
 
     return Controller
