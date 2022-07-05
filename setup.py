@@ -27,7 +27,7 @@ if __name__ == "__main__":
         install_requires=[
             "cherrypy==13.0.0",
             "routes==2.4.1",
-            "ujson==1.35"],
+            "ujson==5.4.0"],
         classifiers=[
             "Development Status :: 5 - Production/Stable",
             "Environment :: Web Environment",
